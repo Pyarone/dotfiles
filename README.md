@@ -1,4 +1,4 @@
-Custom install script including dotfiles.
+Personal install script including dotfiles for cachyos.
 
 Try this one first, it was provided by ai, might not match
 ```bash

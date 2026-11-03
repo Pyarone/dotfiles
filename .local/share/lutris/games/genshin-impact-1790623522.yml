@@ -1,0 +1,49 @@
+game:
+  exe: /mnt/LinuxGames/genshin-impact/drive_c/Program Files/HoYoPlay/launcher.exe
+  prefix: /mnt/LinuxGames/genshin-impact
+game_slug: genshin-impact
+name: Genshin Impact
+script:
+  files:
+  - giclient:
+      filename: GenshinImpact_install_mihoyo.exe
+      url: https://sg-public-api.hoyoverse.com/event/download_porter/trace/hyp_global/hyphoyoverse/default?url=https%3A%2F%2Fhoyoplay.hoyoverse.com%2F
+  game:
+    exe: drive_c/Program Files/HoYoPlay/launcher.exe
+    prefix: $GAMEDIR
+  installer:
+  - task:
+      arch: win64
+      prefix: /mnt/LinuxGames/genshin-impact
+      wine_path: /home/pyarone/.local/share/lutris/runtime/umu/umu-run
+  - task:
+      app: vcrun2019 corefonts
+      arch: win64
+      prefix: /mnt/LinuxGames/genshin-impact
+      wine_path: /home/pyarone/.local/share/lutris/runtime/umu/umu-run
+  - task:
+      arch: win64
+      key: Decorated
+      path: HKEY_CURRENT_USER\Software\Wine\X11 Driver
+      prefix: /mnt/LinuxGames/genshin-impact
+      type: REG_SZ
+      value: N
+      wine_path: /home/pyarone/.local/share/lutris/runtime/umu/umu-run
+  - task:
+      arch: win64
+      env:
+        GAMEID: umu-genshin
+      executable: /home/pyarone/.cache/lutris/installer/genshin-impact/giclient/GenshinImpact_install_mihoyo.exe
+      prefix: /mnt/LinuxGames/genshin-impact
+      wine_path: /home/pyarone/.local/share/lutris/runtime/umu/umu-run
+  system:
+    env:
+      GAMEID: umu-genshin
+slug: genshin-impact-standard
+system:
+  env:
+    DISABLE_MANGOHUD: '1'
+    DISABLE_VULKAN_LSFG_LAYER: '1'
+    GAMEID: umu-genshin
+version: Standard
+year: 2020

@@ -16,3 +16,7 @@ dotpush() {
     config commit -m "${1:-update dotfiles}" # Uses your message, or a      default one
     config push
 }
+
+dotpull() {
+    config pull
+}

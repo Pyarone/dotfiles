@@ -114,7 +114,7 @@ if ! /usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME checkout; then
     /usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME checkout
 fi
 
-echo "Adding user info to git"
+echo "Setting required git configuration options including a push"
 git config --global user.email "pyarone@gmail.com"
 git config --global user.name "Ted"
 /usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME push --set-upstream origin main

@@ -117,6 +117,7 @@ fi
 echo "Setting required git configuration options including a push"
 git config --global user.email "pyarone@gmail.com"
 git config --global user.name "Ted"
+git config --global pull.rebase true
 /usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME push --set-upstream origin main
 
 #make the scripts in home executable

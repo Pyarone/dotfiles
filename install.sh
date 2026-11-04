@@ -118,6 +118,7 @@ fi
 echo "Adding user info to git"
 git config --global user.email "pyarone@gmail.com"
 git config --global user.name "Ted"
+git push --set-upstream origin main
 
 #make the scripts in home executable
 echo "Making scripts executable"

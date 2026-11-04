@@ -2,7 +2,7 @@
 #for cachyos
 
 #polychromatic, may need reboot after
-sudo pacman -S --needed --noconfirm yay
+sudo pacman -Sy --needed --noconfirm yay
 yay -S --needed --noconfirm polychromatic
 sudo gpasswd -a $USER openrazer
 
@@ -35,7 +35,7 @@ sudo ufw allow in on tailscale0 to any port 445 proto tcp
 sudo ufw deny in to any port 445 proto tcp
 sudo ufw allow in on tailscale0 to any port 139 proto tcp
 sudo ufw deny in to any port 139 proto tcp
-sudo ufw enable
+sudo ufw --force enable
 
 notify-send -i system-software-update "Reboot Required" "Please restart your computer to finish applying updates."
 
@@ -97,7 +97,7 @@ if [ ! -d "$TARGET_DIR" ]; then
     # Clone the bare repository
     git clone --bare git@github.com:Pyarone/dotfiles.git $TARGET_DIR
     #this should get the list of files that conflict from git and use that list to move all of those conflicting files into a backup folder
-    mkdir -p ~/.dotfiles-backup && /usr/bin/git --git-dir=$TARGET_DIR --work-tree=$HOME checkout 2>&1 | grep -E "\s+\." | awk {'print $1'} | xargs -r -I {} mv --parents {} ~/.dotfiles-backup/{}
+    mkdir -p ~/.dotfiles-backup && /usr/bin/git --git-dir=$TARGET_DIR --work-tree=$HOME checkout 2>&1 | grep -E "\s+\." | awk {'print $1'} | xargs -r -I {} mv {} ~/.dotfiles-backup/{}
     # Checkout the repository contents (pulls down your .gitignore into $HOME)
     /usr/bin/git --git-dir=$TARGET_DIR --work-tree=$HOME checkout
 fi

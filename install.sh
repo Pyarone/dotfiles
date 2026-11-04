@@ -131,5 +131,6 @@ chmod +x ~/install_whisperx.sh
 sudo tailscale up
 
 echo "Everything complete!"
+echo "Next step should be reboot, then open polychromatic and set mouse dpi to 800"
 notify-send -i system-software-update "Reboot Required" "Please restart your computer to finish applying updates."
 

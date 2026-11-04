@@ -93,16 +93,16 @@ fi
 #checkout repo if not exists
 TARGET_DIR="$HOME/.cfg/"
 
-if [ ! -d "$TARGET_DIR" ]; then
+if [ ! -d "$HOME/.cfg/" ]; then
     echo "Cloning dotfiles repository..."
     # Clone the bare repository
-    git clone --bare git@github.com:Pyarone/dotfiles.git $TARGET_DIR
+    git clone --bare git@github.com:Pyarone/dotfiles.git $HOME/.cfg/
 
     #this should get the list of files that conflict from git and use that list to move all of those conflicting files into a backup folder
     mkdir -p ~/.dotfiles-backup && config checkout 2>&1 | grep -E "\s+\." | awk {'print $1'} | xargs -I {} mv {} ~/.dotfiles-backup/{}
 
     # Checkout the repository contents (pulls down your .gitignore into $HOME)
-    /usr/bin/git --git-dir=$TARGET_DIR --work-tree=$HOME checkout
+    /usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME checkout
 fi
 
 

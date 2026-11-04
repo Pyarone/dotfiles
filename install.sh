@@ -59,7 +59,7 @@ else
 fi
 
 # Check if we can already authenticate with GitHub
-if ! ssh -T git@github.com 2>&1 | grep -q "successfully authenticated"; then
+if ! ssh -T git@github.com 2>&1 || true | grep -q "successfully authenticated"; then
     echo "--- ACTION REQUIRED ---"
     echo "Your public SSH key is printed below and copied to your clipboard:"
     cat "$HOME/.ssh/id_ed25519.pub"
@@ -83,9 +83,6 @@ if ! ssh -T git@github.com 2>&1 | grep -q "successfully authenticated"; then
 
     # Pause the script until the user hits Enter
     read -r -p "Press [Enter] once you have added the key to GitHub to continue..."
-
-    # test the connection
-    ssh -T git@github.com
 fi
 
 #checkout repo if not exists
@@ -93,19 +90,12 @@ TARGET_DIR="$HOME/.cfg/"
 
 if [ ! -d "$TARGET_DIR" ]; then
     echo "Cloning dotfiles repository..."
-    # 1. Clone the bare repository
+    # Clone the bare repository
     git clone --bare git@github.com:Pyarone/dotfiles.git $TARGET_DIR
-    # 2. Set your session alias
-    alias config='/usr/bin/git --git-dir=$TARGET_DIR --work-tree=$HOME'
     #this should get the list of files that conflict from git and use that list to move all of those conflicting files into a backup folder
-    mkdir -p ~/.dotfiles-backup && config checkout 2>&1 | grep -E "\s+\." | awk {'print $1'} | xargs -I {} mv {} ~/.dotfiles-backup/{}
-    # 3. Checkout the repository contents (pulls down your .gitignore into $HOME)
-    config checkout
-
-else
-    echo "Dotfiles directory already exists. Pulling latest changes instead..."
-    # cd inside a subshell so we don't accidentally change the script's main working directory
-    (cd "$TARGET_DIR" && git --git-dir=$TARGET_DIR --work-tree=$HOME pull)
+    mkdir -p ~/.dotfiles-backup && /usr/bin/git --git-dir=$TARGET_DIR --work-tree=$HOME checkout 2>&1 | grep -E "\s+\." | awk {'print $1'} | xargs -r -I {} mv {} ~/.dotfiles-backup/{}
+    # Checkout the repository contents (pulls down your .gitignore into $HOME)
+    /usr/bin/git --git-dir=$TARGET_DIR --work-tree=$HOME checkout
 fi
 
 

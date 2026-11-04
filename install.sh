@@ -110,13 +110,20 @@ if ! /usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME checkout; then
         mv "$file" ~/.dotfiles-backup/"$file"
     done
 
+    echo "Running the checkout again..."
     # Retry checkout after backing up
     /usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME checkout
 fi
 
+echo "Adding user info to git"
+git config --global user.email "pyarone@gmail.com"
+git config --global user.name "Ted"
+
 #make the scripts in home executable
+echo "Making scripts executable"
 chmod +x ~/dotpush.sh
 chmod +x ~/dotpull.sh
 chmod +x ~/install.sh
 chmod +x ~/install_whisperx.sh
 
+echo "Everything complete!"

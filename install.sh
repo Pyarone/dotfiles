@@ -91,19 +91,31 @@ if ! ssh -T git@github.com 2>&1 | grep -q "successfully authenticated"; then
 fi
 
 #checkout repo if not exists
-TARGET_DIR="$HOME/.cfg/"
-
 if [ ! -d "$HOME/.cfg/" ]; then
     echo "Cloning dotfiles repository..."
     # Clone the bare repository
     git clone --bare git@github.com:Pyarone/dotfiles.git $HOME/.cfg/
 
-    #this should get the list of files that conflict from git and use that list to move all of those conflicting files into a backup folder
-    mkdir -p ~/.dotfiles-backup && /usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME checkout 2>&1 | grep -E "\s+\." | awk {'print $1'} | xargs -I {} mv --parents {} ~/.dotfiles-backup/
 
-    # Checkout the repository contents (pulls down your .gitignore into $HOME)
+fi
+
+#this should get the list of files that conflict from git and use that list to move all of those conflicting files into a backup folder
+mkdir -p ~/.dotfiles-backup
+
+# Check out files, and if conflicts exist, back them up while preserving directory structure
+if ! /usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME checkout; then
+    echo "Backing up pre-existing conflicting files..."
+    /usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME checkout 2>&1 | grep -E "\s+\." | awk '{print $1}' | while read -r file; do
+        mkdir -p ~/.dotfiles-backup/$(dirname "$file")
+        mv "$file" ~/.dotfiles-backup/"$file"
+    done
+
+    # Retry checkout after backing up
     /usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME checkout
 fi
+
+# Hide untracked files so git status doesn't list your whole home directory
+/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME config --local status.showUntrackedFiles no
 
 
 

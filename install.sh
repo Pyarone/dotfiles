@@ -99,7 +99,8 @@ if [ ! -d "$HOME/.cfg/" ]; then
     git clone --bare git@github.com:Pyarone/dotfiles.git $HOME/.cfg/
 
     #this should get the list of files that conflict from git and use that list to move all of those conflicting files into a backup folder
-    mkdir -p ~/.dotfiles-backup && config checkout 2>&1 | grep -E "\s+\." | awk {'print $1'} | xargs -I {} mv --parents {} ~/.dotfiles-backup/
+    mkdir -p "$HOME/.dotfiles-backup" && (cd "$HOME" && /usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME checkout 2>&1 | grep -v -E "error:|Please|Aborting" | awk '{print $1}' | xargs -r -I {} mv --parents {} "$HOME/.dotfiles-backup/")
+
 
     # Checkout the repository contents (pulls down your .gitignore into $HOME)
     /usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME checkout

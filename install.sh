@@ -38,9 +38,6 @@ sudo ufw allow in on tailscale0 to any port 139 proto tcp
 sudo ufw deny in to any port 139 proto tcp
 sudo ufw --force enable
 
-#user interaction required to connect to tailscale
-sudo tailscale up
-
 
 #git stuff
 
@@ -129,6 +126,9 @@ chmod +x ~/dotpush.sh
 chmod +x ~/dotpull.sh
 chmod +x ~/install.sh
 chmod +x ~/install_whisperx.sh
+
+#user interaction required to connect to tailscale
+sudo tailscale up
 
 echo "Everything complete!"
 notify-send -i system-software-update "Reboot Required" "Please restart your computer to finish applying updates."

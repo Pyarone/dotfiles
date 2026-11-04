@@ -24,6 +24,7 @@ sudo pacman -S --needed --noconfirm isoimagewriter
 #add the cachyos gaming meta but skip the app package and just get the ones i want
 sudo pacman -S --needed --noconfirm cachyos-gaming-meta
 sudo pacman -S --needed --noconfirm faugus-launcher lutris steam wqy-zenhei
+yay -S --needed --noconfirm an-anime-game-launcher-bin
 
 #remember to start steam at some point to finish its installation
 

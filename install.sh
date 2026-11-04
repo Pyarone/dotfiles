@@ -9,6 +9,7 @@ yay -S --needed --noconfirm polychromatic
 sudo gpasswd -a $USER openrazer
 
 #one line packages
+sudo pacman -S --needed --noconfirm git
 sudo pacman -S --needed --noconfirm audacity
 sudo pacman -S --needed --noconfirm obs-studio
 sudo pacman -S --needed --noconfirm firefox
@@ -39,3 +40,73 @@ sudo ufw deny in to any port 139 proto tcp
 sudo ufw enable
 
 notify-send -i system-software-update "Reboot Required" "Please restart your computer to finish applying updates."
+
+#git stuff
+
+# Check if the private key file already exists
+if [ ! -f "$HOME/.ssh/id_ed25519" ]; then
+    echo "Generating a new SSH key..."
+    # -N "" creates it with no passphrase, -f specifies the path
+    ssh-keygen -t ed25519 -C "pyarone@gmail.com" -N "" -f "$HOME/.ssh/id_ed25519"
+
+    # Start the ssh-agent in the background
+    #update: gemini is now saying the following lines aren't needed in modern kde
+    #eval "$(ssh-agent -s)"
+    # Add your newly created SSH key to the agent
+    #ssh-add ~/.ssh/id_ed25519
+else
+    echo "SSH key already exists. Skipping generation."
+fi
+
+# Check if we can already authenticate with GitHub
+if ! ssh -T git@github.com 2>&1 | grep -q "successfully authenticated"; then
+    echo "--- ACTION REQUIRED ---"
+    echo "Your public SSH key is printed below and copied to your clipboard:"
+    cat "$HOME/.ssh/id_ed25519.pub"
+
+    # Try to copy to clipboard automatically depending on the display server
+    if command -v wl-copy &> /dev/null; then
+        cat "$HOME/.ssh/id_ed25519.pub" | wl-copy
+    elif command -v xclip &> /dev/null; then
+        cat "$HOME/.ssh/id_ed25519.pub" | xclip -sel clip
+    fi
+
+    echo ""
+    echo "Log into GitHub in your web browser."
+    echo "In the top-right corner, click your profile photo, then select Settings."
+    echo "In the left sidebar, click SSH and GPG keys."
+    echo "Click the green New SSH key button."
+    echo "Give it a descriptive title (e.g., "z370-cachy")."
+    echo "In the Key type field, leave it as Authentication Key."
+    echo "Paste your copied key into the Key text box."
+    echo "Click Add SSH key (you may be asked to enter your GitHub password one last time to confirm)."
+
+    # Pause the script until the user hits Enter
+    read -r -p "Press [Enter] once you have added the key to GitHub to continue..."
+
+    # test the connection
+    ssh -T git@github.com
+fi
+
+#checkout repo if not exists
+TARGET_DIR="$HOME/.cfg/"
+
+if [ ! -d "$TARGET_DIR" ]; then
+    echo "Cloning dotfiles repository..."
+    # 1. Clone the bare repository
+    git clone --bare git@github.com:Pyarone/dotfiles.git $TARGET_DIR
+    # 2. Set your session alias
+    alias config='/usr/bin/git --git-dir=$TARGET_DIR --work-tree=$HOME'
+    #this should get the list of files that conflict from git and use that list to move all of those conflicting files into a backup folder
+    mkdir -p ~/.dotfiles-backup && config checkout 2>&1 | grep -E "\s+\." | awk {'print $1'} | xargs -I {} mv {} ~/.dotfiles-backup/{}
+    # 3. Checkout the repository contents (pulls down your .gitignore into $HOME)
+    config checkout
+
+else
+    echo "Dotfiles directory already exists. Pulling latest changes instead..."
+    # cd inside a subshell so we don't accidentally change the script's main working directory
+    (cd "$TARGET_DIR" && git --git-dir=$TARGET_DIR --work-tree=$HOME pull)
+fi
+
+
+

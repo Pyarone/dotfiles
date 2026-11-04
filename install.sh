@@ -20,6 +20,8 @@ sudo pacman -S --needed --noconfirm amdgpu_top
 sudo pacman -S --needed --noconfirm vlc
 sudo pacman -S --needed --noconfirm tailscale
 sudo systemctl enable --now tailscaled
+#user interaction required to connect to tailscale
+sudo tailscale up
 sudo pacman -S --needed --noconfirm isoimagewriter
 #add the cachyos gaming meta but skip the app package and just get the ones i want
 sudo pacman -S --needed --noconfirm cachyos-gaming-meta
@@ -37,9 +39,6 @@ sudo ufw deny in to any port 445 proto tcp
 sudo ufw allow in on tailscale0 to any port 139 proto tcp
 sudo ufw deny in to any port 139 proto tcp
 sudo ufw --force enable
-
-#user interaction required to connect to tailscale
-sudo tailscale up
 
 
 #git stuff

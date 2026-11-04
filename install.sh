@@ -38,6 +38,9 @@ sudo ufw allow in on tailscale0 to any port 139 proto tcp
 sudo ufw deny in to any port 139 proto tcp
 sudo ufw --force enable
 
+#user interaction required to connect to tailscale
+sudo tailscale up
+
 
 #git stuff
 

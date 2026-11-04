@@ -121,7 +121,7 @@ git config --global pull.rebase true
 /usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME push --set-upstream origin main
 
 #make the scripts in home executable
-echo "Making scripts executable"
+echo "Making sure scripts are executable"
 chmod +x ~/dotpush.sh
 chmod +x ~/dotpull.sh
 chmod +x ~/install.sh

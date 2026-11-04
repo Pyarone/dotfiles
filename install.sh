@@ -114,8 +114,9 @@ if ! /usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME checkout; then
     /usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME checkout
 fi
 
-# Hide untracked files so git status doesn't list your whole home directory
-/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME config --local status.showUntrackedFiles no
-
-
+#make the scripts in home executable
+chmod +x ~/dotpush.sh
+chmod +x ~/dotpull.sh
+chmod +x ~/install.sh
+chmod +x ~/install_whisperx.sh
 

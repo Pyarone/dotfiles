@@ -142,6 +142,13 @@ totalSensors=[]
 
 [Face-109221952921552][Appearance]
 chartFace=org.kde.ksysguard.piechart
+title=GPU Memory
+
+[Face-109221952921552][SensorColors]
+gpu/all/usedVram=233,161,61
+
+[Face-109221952921552][Sensors]
+highPrioritySensorIds=["gpu/all/usedVram"]
 
 [Face-109221957167216][Appearance]
 chartFace=org.kde.ksysguard.piechart

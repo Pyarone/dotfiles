@@ -92,6 +92,7 @@ chartFace=org.kde.ksysguard.applicationstable
 showTitle=true
 
 [Face-108592549200736][org.kde.ksysguard.applicationstable][General]
+showDetails=
 showToolBar=true
 sortDirection=
 

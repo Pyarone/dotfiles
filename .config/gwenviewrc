@@ -1,0 +1,33 @@
+[General]
+LastUsedVersion=210800
+
+[ImageView]
+MouseWheelBehavior=MouseWheelBehavior::Zoom
+
+[MainWindow]
+MenuBar=Disabled
+
+[Recent Files]
+File1[$e]=/mnt/ButtCam6/Video/2026-11-10 Tuesday nametag/vlcsnap-2026-11-11-00h01m45s306.png
+File10[$e]=/mnt/ButtCam6/Video/2026-11-10 Tuesday nametag/vlcsnap-2026-11-11-00h58m35s279.png
+File2[$e]=/mnt/ButtCam6/Video/2026-11-10 Tuesday nametag/vlcsnap-2026-11-10-23h33m33s684.png
+File3[$e]=/mnt/ButtCam6/Video/2026-11-10 Tuesday nametag/vlcsnap-2026-11-10-23h33m31s952.png
+File4[$e]=/mnt/ButtCam6/Video/2026-11-10 Tuesday nametag/vlcsnap-2026-11-10-23h33m30s082.png
+File5[$e]=/mnt/ButtCam6/Video/2026-11-10 Tuesday nametag/vlcsnap-2026-11-10-23h33m27s296.png
+File6[$e]=/mnt/ButtCam6/Video/2026-11-10 Tuesday nametag/vlcsnap-2026-11-10-23h33m22s103.png
+File7[$e]=/mnt/ButtCam6/Video/2026-11-10 Tuesday nametag/vlcsnap-2026-11-11-00h58m32s000.png
+File8[$e]=/mnt/ButtCam6/Video/2026-11-10 Tuesday nametag/vlcsnap-2026-11-11-00h58m33s293.png
+File9[$e]=/mnt/ButtCam6/Video/2026-11-10 Tuesday nametag/vlcsnap-2026-11-11-00h58m34s315.png
+Name1[$e]=vlcsnap-2026-11-11-00h01m45s306.png
+Name10[$e]=vlcsnap-2026-11-11-00h58m35s279.png
+Name2[$e]=vlcsnap-2026-11-10-23h33m33s684.png
+Name3[$e]=vlcsnap-2026-11-10-23h33m31s952.png
+Name4[$e]=vlcsnap-2026-11-10-23h33m30s082.png
+Name5[$e]=vlcsnap-2026-11-10-23h33m27s296.png
+Name6[$e]=vlcsnap-2026-11-10-23h33m22s103.png
+Name7[$e]=vlcsnap-2026-11-11-00h58m32s000.png
+Name8[$e]=vlcsnap-2026-11-11-00h58m33s293.png
+Name9[$e]=vlcsnap-2026-11-11-00h58m34s315.png
+
+[SideBar]
+InformationSplitterSizes=211,244
